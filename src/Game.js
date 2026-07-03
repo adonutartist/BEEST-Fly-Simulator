@@ -3,6 +3,7 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import { Input } from "./Input.js";
 import { Player } from "./Player.js";
 import { CameraController } from "./CameraController.js";
+import { World } from "./World.js";
 export class Game{
     constructor(){
         this.scene = new THREE.Scene();
@@ -17,16 +18,7 @@ export class Game{
         this.input = new Input();
         this.player = null;
         this.cameraController = null;
-        const ambient = new THREE.AmbientLight(0xffffff,2);
-        this.scene.add(ambient);
-        const sun = new THREE.DirectionalLight(0xffffff,3);
-        sun.position.set(40,80,30);
-        this.scene.add(sun);
-        const ground = new THREE.Mesh(new THREE.PlaneGeometry(5000,5000),new THREE.MeshStandardMaterial({color:0x5BAE4A}));
-        ground.rotation.x = -Math.PI/2;
-        this.scene.add(ground);
-        const grid = new THREE.GridHelper(5000,200,0x444444,0x444444);
-        this.scene.add(grid);
+        this.world = new World(this.scene);
         this.beest = null;
         const loader = new GLTFLoader();
         loader.load("assets/beest.glb",(gltf)=>{
