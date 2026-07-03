@@ -6,11 +6,10 @@ scene.background = new THREE.Color(0x87ceeb);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 camera.position.set(0,3,6);
 const renderer = new THREE.WebGLRenderer({antialias:true});
+const keys = {};
 renderer.setSize(window.innerWidth,window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
-const controls = new OrbitControls(camera,renderer.domElement);
-controls.enableDamping = true;
 const ambient = new THREE.AmbientLight(0xffffff,2);
 scene.add(ambient);
 const sun = new THREE.DirectionalLight(0xffffff,3);
@@ -20,20 +19,21 @@ const ground = new THREE.Mesh(new THREE.PlaneGeometry(500,500),new THREE.MeshSta
 ground.rotation.x=-Math.PI/2;
 scene.add(ground);
 const loader = new GLTFLoader();
-loader.load(
-    "assets/beest.glb",
-    function(gltf){
-        const beest = gltf.scene;
-        beest.scale.set(1,1,1);
-        beest.position.y=1;
-        scene.add(beest);
-        console.log("BEEST LOADED");
-    },
-    undefined,
-    function(error){
-        console.error(error);
-    }
-);
+let beest;
+let speed = 0.05;
+let turnSpeed = 0.03;
+loader.load("assets/beest.glb",(gltf)=>{
+    beest = gltf.scene;
+    beest.scale.set(1,1,1);
+    beest.position.set(0,1,0);
+    scene.add(beest);
+});
+window.addEventListener("keydown",(e)=>{
+    keys[e.key.toLowerCase()] = true;
+});
+window.addEventListener("keyup",(e)=>{
+    keys[e.key.toLowerCase()] = false;
+});
 window.addEventListener("resize",()=>{
     camera.aspect=window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
@@ -41,7 +41,31 @@ window.addEventListener("resize",()=>{
 });
 function animate(){
     requestAnimationFrame(animate);
-    controls.update();
+    if(beest){
+        if(keys["a"]){
+            beest.rotation.y += turnSpeed;
+        }
+        if(keys["d"]){
+            beest.rotation.y -= turnSpeed;
+        }
+        if(keys["w"]){
+            beest.translateZ(speed);
+        }
+        if(keys["s"]){
+            beest.translateZ(-speed);
+        }
+        if(keys[" "]){
+            beest.position.y += speed;
+        }
+        if(keys["shift"]){
+            beest.position.y -= speed;
+        }
+        const offset = new THREE.Vector3(0,2,-6);
+        offset.applyQuaternion(beest.quaternion);
+        const desiredPosition = beest.position.clone().add(offset);
+        camera.position.lerp(desiredPosition,0.08);
+        camera.lookAt(beest.position);
+    }
     renderer.render(scene,camera);
 }
 animate();
