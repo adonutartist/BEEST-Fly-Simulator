@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { ForestGenerator } from "./ForestGenerator.js";
+import { VillageGenerator } from "./VillageGenerator.js";
 export class World{
     constructor(scene){
         this.scene = scene;
@@ -7,6 +8,7 @@ export class World{
         this.createLights();
         this.createSky();
         this.forest = new ForestGenerator(this.scene);
+        this.villages = new VillageGenerator(this.scene);
     }
     createGround(){
         const ground = new THREE.Mesh(new THREE.PlaneGeometry(5000,5000),new THREE.MeshStandardMaterial({color:0x4BA64F}));

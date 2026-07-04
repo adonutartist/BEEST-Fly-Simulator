@@ -1,23 +1,14 @@
 import * as THREE from "three";
+import { AssetManager } from "./AssetManager.js";
 export class Building{
     constructor(scene, position){
         this.scene = scene;
-        this.health = 100;
-        this.group = new THREE.Group();
-        const base = new THREE.Mesh(new THREE.BoxGeometry(4,4,4),new THREE.MeshStandardMaterial({color:0xd8b98a}));
-        base.position.y = 2;
-        this.group.add(base);
-        const roof = new THREE.Mesh(new THREE.ConeGeometry(3.6,2,4),new THREE.MeshStandardMaterial({color:0xaa3333}));
-        roof.position.y = 5;
-        roof.rotation.y = Math.PI/4;
-        this.group.add(roof);
-        this.group.position.copy(position);
-        scene.add(this.group);
-    }
-    damage(amount){
-        this.health-=amount;
-    }
-    destroyed(){
-        return this.health<=0;
+        this.object = AssetManager.randomBuilding();
+        if(!this.object) return;
+        this.object.position.copy(position);
+        this.object.rotation.y = Math.floor(Math.random()*4)*(Math.PI/2);
+        const scale = THREE.MathUtils.randFloat(4,6);
+        this.object.scale.setScalar(scale);
+        scene.add(this.object);
     }
 }

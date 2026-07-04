@@ -4,7 +4,7 @@ import { Input } from "./Input.js";
 import { Player } from "./Player.js";
 import { CameraController } from "./CameraController.js";
 import { World } from "./World.js";
-import { ChunkManager } from "./ChunkManager.js";
+
 import { Effects } from "./Effects.js";
 import { AssetManager } from "./AssetManager.js";
 export class Game{
@@ -21,7 +21,6 @@ export class Game{
         this.input = new Input();
         this.player = null;
         this.cameraController = null;
-        this.chunkManager = new ChunkManager(this.scene);
         this.effects = null;
         this.beest = null;
         const loader = new GLTFLoader();
