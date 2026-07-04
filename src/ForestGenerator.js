@@ -3,17 +3,20 @@ import { Tree } from "./Tree.js";
 import { Rock } from "./Rock.js";
 
 export class ForestGenerator{
-    constructor(scene){
+    constructor(scene,center,size){
         this.scene = scene;
+        this.center = center;
+        this.size = size;
         this.treeRadius = 12;
         this.clusterCount = 40;
         this.clusterRadius = 45;
         this.worldRadius = 800
-        this.generate();
+        this.generate(center);
     }
     generate(){
-        for(let i=0;i<this.clusterCount;i++){
-            const center = new THREE.Vector3(THREE.MathUtils.randFloatSpread(this.worldRadius*2),0,THREE.MathUtils.randFloatSpread(this.worldRadius*2));
+        const clusters = THREE.MathUtils.randInt(5,9);
+        for(let i=0;i<clusters;i++){
+            const center = new THREE.Vector3(this.center.x + THREE.MathUtils.randFloatSpread(this.size),0,this.center.z + THREE.MathUtils.randFloatSpread(this.size));   
             this.generateCluster(center);
         }
     }
