@@ -4,6 +4,10 @@ import { Input } from "./Input.js";
 import { Player } from "./Player.js";
 import { CameraController } from "./CameraController.js";
 import { World } from "./World.js";
+import { ChunkManager } from "./ChunkManager.js";
+import { Effects } from "./Effects.js";
+import { AssetManager } from "./AssetManager.js";
+
 export class Game{
     constructor(){
         this.scene = new THREE.Scene();
@@ -19,6 +23,8 @@ export class Game{
         this.player = null;
         this.cameraController = null;
         this.world = new World(this.scene);
+        this.chunkManager = new ChunkManager(this.scene);
+        this.effects = null;
         this.beest = null;
         const loader = new GLTFLoader();
         loader.load("assets/beest.glb",(gltf)=>{
@@ -27,6 +33,7 @@ export class Game{
             this.beest.scale.set(1,1,1);
             this.scene.add(this.beest);
             this.player = new Player(this.beest);
+            this.effects = new Effects(this.player);
             this.cameraController = new CameraController(this.camera,this.player);
             console.log("BEEST Loaded.");
         });
@@ -39,15 +46,24 @@ export class Game{
             document.body.requestPointerLock();
         });
     }
-    start(){
+    async start(){
+        await this.loadAssets();
         this.renderer.setAnimationLoop(()=>{this.update();});
     }
     update(){
         const delta = this.clock.getDelta();
         if(this.player){
             this.player.update(delta,this.input);
+            this.effects.update(delta,this.input);
             this.cameraController.update(delta);
         }
         this.renderer.render(this.scene,this.camera);
+    }
+    async loadAssets(){
+        await AssetManager.load("oak","assets/nature/Flat_Tree_Oak_large_green.glb");
+        await AssetManager.load("pine","assets/nature/Flat_Tree_Pine_large.glb");
+        await AssetManager.load("rock","assets/nature/Flat_Rock_01.glb");
+        await AssetManager.load("house","assets/buildings/Fantasy House.glb");
+        console.log("ALL ASSETS LOADED.")
     }
 }
