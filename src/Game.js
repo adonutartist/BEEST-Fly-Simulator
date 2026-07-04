@@ -59,9 +59,13 @@ export class Game{
     }
     async loadAssets(){
         await AssetManager.load("oak","assets/nature/Flat_Tree_Oak_large_green.glb");
+        AssetManager.registerTree("oak");
         await AssetManager.load("pine","assets/nature/Flat_Tree_Pine_large.glb");
+        AssetManager.registerTree("pine");
         await AssetManager.load("rock","assets/nature/Flat_Rock_01.glb");
+        AssetManager.registerRock("rock");
         await AssetManager.load("house","assets/buildings/Fantasy House.glb");
+        AssetManager.registerBuilding("house");
         console.log("ALL ASSETS LOADED.")
         this.World = new World(this.scene);
     }

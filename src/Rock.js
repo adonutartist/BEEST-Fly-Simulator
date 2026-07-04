@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { AssetManager } from "./AssetManager.js";
 export class Rock{
     constructor(scene,position){
-        this.object=AssetManager.get("rock");
+        this.object = AssetManager.randomRock();
         if(!this.object) return;
         this.object.position.copy(position);
         this.object.rotation.y=Math.random()*Math.PI*2;

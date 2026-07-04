@@ -3,8 +3,7 @@ import { AssetManager } from "./AssetManager.js";
 export class Tree{
     constructor(scene,position){
         this.scene=scene;
-        const names=["oak","pine"];
-        this.object = AssetManager.get(names[Math.floor(Math.random()*names.length)]);
+        this.object = AssetManager.randomTree();
         if(!this.object) return;
         this.object.position.copy(position);
         this.object.rotation.y = Math.random()*Math.PI*2;
