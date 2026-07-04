@@ -7,7 +7,6 @@ import { World } from "./World.js";
 import { ChunkManager } from "./ChunkManager.js";
 import { Effects } from "./Effects.js";
 import { AssetManager } from "./AssetManager.js";
-
 export class Game{
     constructor(){
         this.scene = new THREE.Scene();
@@ -22,7 +21,6 @@ export class Game{
         this.input = new Input();
         this.player = null;
         this.cameraController = null;
-        this.world = new World(this.scene);
         this.chunkManager = new ChunkManager(this.scene);
         this.effects = null;
         this.beest = null;
@@ -65,5 +63,6 @@ export class Game{
         await AssetManager.load("rock","assets/nature/Flat_Rock_01.glb");
         await AssetManager.load("house","assets/buildings/Fantasy House.glb");
         console.log("ALL ASSETS LOADED.")
+        this.World = new World(this.scene);
     }
 }
