@@ -61,8 +61,26 @@ export class Game{
         AssetManager.registerTree("oak");
         await AssetManager.load("pine","assets/nature/Flat_Tree_Pine_large.glb");
         AssetManager.registerTree("pine");
-        await AssetManager.load("rock","assets/nature/Flat_Rock_01.glb");
-        AssetManager.registerRock("rock");
+        await AssetManager.load("rock1","assets/nature/Flat_Rock_01.glb");
+        AssetManager.registerRock("rock1");
+        await AssetManager.load("rock2","assets/nature/Flat_Rock_02.glb");
+        AssetManager.registerRock("rock2");
+        await AssetManager.load("rock3","assets/nature/Flat_Rock_03.glb");
+        AssetManager.registerRock("rock3");
+        await AssetManager.load("rock4","assets/nature/Flat_Rock_04.glb");
+        AssetManager.registerRock("rock4");
+        await AssetManager.load("rock5","assets/nature/Flat_Rock_05.glb");
+        AssetManager.registerRock("rock5");
+        await AssetManager.load("rock6","assets/nature/Flat_Rock_06.glb");
+        AssetManager.registerRock("rock6");
+        await AssetManager.load("rock7","assets/nature/Flat_Rock_07.glb");
+        AssetManager.registerRock("rock7");
+        await AssetManager.load("rock8","assets/nature/Flat_Rock_08.glb");
+        AssetManager.registerRock("rock8");
+        await AssetManager.load("rock9","assets/nature/Flat_Rock_09.glb");
+        AssetManager.registerRock("rock9");
+        await AssetManager.load("rock10","assets/nature/Flat_Rock_10.glb");
+        AssetManager.registerRock("rock10");
         await AssetManager.load("house","assets/buildings/Fantasy House.glb");
         AssetManager.registerBuilding("house");
         console.log("ALL ASSETS LOADED.")

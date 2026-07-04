@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { ForestGenerator } from "./ForestGenerator.js";
 import { VillageGenerator } from "./VillageGenerator.js";
+import { DecorationGenerator } from "./DecorationGenerator.js";
 export class World{
     constructor(scene){
         this.scene = scene;
@@ -8,6 +9,7 @@ export class World{
         this.createLights();
         this.createSky();
         this.forest = new ForestGenerator(this.scene);
+        this.decorations = new DecorationGenerator(this.scene);
         this.villages = new VillageGenerator(this.scene);
     }
     createGround(){
