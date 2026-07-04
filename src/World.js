@@ -2,15 +2,16 @@ import * as THREE from "three";
 import { ForestGenerator } from "./ForestGenerator.js";
 import { VillageGenerator } from "./VillageGenerator.js";
 import { DecorationGenerator } from "./DecorationGenerator.js";
+import { RegionManager } from "./RegionManager.js";
+import { Player } from "./Player.js";
 export class World{
-    constructor(scene){
+    constructor(scene,player){
         this.scene = scene;
+        this.player = player;
+        this.regionManager=new RegionManager(this.scene,this.player);
         this.createGround();
         this.createLights();
         this.createSky();
-        this.forest = new ForestGenerator(this.scene);
-        this.decorations = new DecorationGenerator(this.scene);
-        this.villages = new VillageGenerator(this.scene);
     }
     createGround(){
         const ground = new THREE.Mesh(new THREE.PlaneGeometry(5000,5000),new THREE.MeshStandardMaterial({color:0x4BA64F}));

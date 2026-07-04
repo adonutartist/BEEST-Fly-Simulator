@@ -51,6 +51,9 @@ export class Game{
         const delta = this.clock.getDelta();
         if(this.player){
             this.player.update(delta,this.input);
+            if(this.world){
+                this.world.regionManager.update();
+            }
             this.effects.update(delta,this.input);
             this.cameraController.update(delta);
         }
@@ -84,6 +87,6 @@ export class Game{
         await AssetManager.load("house","assets/buildings/Fantasy House.glb");
         AssetManager.registerBuilding("house");
         console.log("ALL ASSETS LOADED.")
-        this.World = new World(this.scene);
+        this.world = new World(this.scene,this.player);
     }
 }
