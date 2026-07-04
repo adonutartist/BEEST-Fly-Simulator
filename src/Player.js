@@ -3,8 +3,8 @@ export class Player{
     constructor(object){
         this.object=object;
         this.speed=0;
-        this.maxSpeed=12;
-        this.acceleration=18;
+        this.maxSpeed=100;
+        this.acceleration=60;
         this.drag=8;
         this.turnSpeed=2.4;
         this.verticalSpeed=8;
